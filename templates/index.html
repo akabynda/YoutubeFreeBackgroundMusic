@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Коллекция фоновой музыки с YouTube</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+</head>
+<body>
+<div class="container px-4">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <div class="header clearfix"><h1 class="text-muted">Коллекция фоновой музыки с YouTube</h1></div>
+        </li>
+        <li class="list-group-item"><p>
+            <div class="table_with_buttons">
+                <div class="row">
+                    <div class="col">
+                        <select name="genre-select" id="genre-select" class="form-select" aria-label="genre">
+                            {%for i in range(0, len_genres)%}
+                            <option value={{i}}>{{genres[i]}}</option>
+                            {%endfor%}
+                        </select>
+                        <input type="hidden" name="hidden_value1" id="hidden_value1"/>
+                        <div style="clear:both"></div>
+                    </div>
+                    <div class="col">
+                        <select name="mood-select" id="mood-select" class="form-select" aria-label="mood">
+                            {%for i in range(0, len_moods)%}
+                            <option value={{i}}>{{moods[i]}}</option>
+                            {%endfor%}
+                        </select>
+                        <input type="hidden" name="hidden_value2" id="hidden_value2"/>
+                        <div style="clear:both"></div>
+                    </div>
+                </div>
+                </p>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">Название</th>
+                        <th scope="col">Жанры</th>
+                        <th scope="col">Настроения</th>
+                        <th scope="col">Скачать</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<script>
+$(document).ready(function(){
+    load_data();
+    function load_data(genre='', mood='')
+    {
+        $.ajax({
+            url:"/filter",
+            method:"POST",
+            data:{a:genre,b:mood},
+            success:function(data)
+            {
+                $('tbody').html(data);
+                $('tbody').append(data.htmlresponse);
+            }
+        })
+    }
+
+    $('#genre-select').change(function(){
+        $('#hidden_value1').val($('#genre-select').val());
+        var genre = $('#hidden_value1').val();
+        $('#hidden_value2').val($('#mood-select').val());
+        var mood = $('#hidden_value2').val();
+        load_data(genre,mood);
+    });
+
+    $('#mood-select').change(function(){
+        $('#hidden_value2').val($('#mood-select').val());
+        var mood = $('#hidden_value2').val();
+        $('#hidden_value1').val($('#genre-select').val());
+        var genre = $('#hidden_value1').val();
+        load_data(genre, mood);
+    });
+
+});
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
+
+</body>

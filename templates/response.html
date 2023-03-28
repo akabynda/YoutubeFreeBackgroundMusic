@@ -1,0 +1,15 @@
+{%for track in track_list%}
+<tr>
+    <th scope="row">
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe width="300" height="150" src={{"https://www.youtube.com/embed/"+track.url}}
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
+        </div>
+    </th>
+    <td>{{track.genres}}</td>
+    <td>{{track.moods}}</td>
+    <td>Скачать</td>
+</tr>
+{%endfor%}
