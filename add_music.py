@@ -4,9 +4,7 @@ from info import GENRES, MOODS, NEUTRAL_GENRE, NEUTRAL_MOOD
 
 while True:
     print("Enter ulr")
-    url = 'k'
-    while validators.url("https://www.youtube.com/embed/" + url) != True:
-        url = input()
+    url = input()
     print("Enter genres")
     genres = [NEUTRAL_GENRE]
     genre = ''
