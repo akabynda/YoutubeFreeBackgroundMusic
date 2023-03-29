@@ -25,6 +25,7 @@ def find_tracks(genre, mood):
                 genres_str = ", ".join(genres)
                 moods_str = ", ".join(moods)
                 list.append(Track(row["url"], genres_str, moods_str))
+    list.reverse()
     return list
 
 
