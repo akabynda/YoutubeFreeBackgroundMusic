@@ -10,5 +10,30 @@
     </th>
     <td>{{track.genres}}</td>
     <td>{{track.moods}}</td>
+    <td>
+        <button data-clipboard-text={{"https://www.youtube.com/watch?v="+track.url}}>
+            <span>Скопировать</span>
+        </button>
+
+        <!-- 2. Include library -->
+        <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+        <!-- 3. Instantiate clipboard by passing a HTML element -->
+        <script>
+      var btns = document.querySelectorAll('button');
+      var clipboard = new ClipboardJS(btns);
+
+      clipboard.on('success', function (e) {
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+      });
+
+      clipboard.on('error', function (e) {
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+      });
+    </script>
+    </td>
 </tr>
 {%endfor%}
