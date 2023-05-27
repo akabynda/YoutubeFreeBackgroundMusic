@@ -11,7 +11,7 @@
     <td>{{track.genres}}</td>
     <td>{{track.moods}}</td>
     <td>
-        <button id="clipboard" data-clipboard-text={{"https://www.youtube.com/watch?v="+track.url}}>
+        <button id="clipboard" data-clipboard-text={{"https://www.youtube.com/watch?v="+track.url}} onclick="ym(1, 'reachGoal', 'copy_button'); return true;">
             <span>Скопировать</span>
         </button>
 
